@@ -1,11 +1,17 @@
-from nis import cat
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
+from .models import *
 
 
+menu = ['Про сайт', 'Добавити статтю', 'Зворотній зв*язок', 'Увійти']
 
 def index(request):
-    return HttpResponse('<h1>Сторінка програми women</h1><br><a href="/cats/1/">category</a><br><a href="/archive/0000/">arhive</a><br><a href="/eee">перейти на незнайдену сторінку</a>')
+    posts = Women.objects.all()
+    return render(request, 'women/index.html', {'posts':posts, 'menu':menu, 'title':'Головна'})
+
+
+def about(request):
+    return render(request, 'women/about.html', {'menu':menu, 'title':'Про сайт'})
 
 
 def category(request, catid):
