@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 
 
@@ -34,8 +34,16 @@ def login(request):
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1 style="color:darkblue">Сторінка не знайдена :(</h1><br><a href="/">перейти на головну</a>')
 
-def show_post(request, post_id):
-    return HttpResponse(f'Відображення статті із id = {post_id}')
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
+    context = {
+        'post' : post,
+        'menu' : menu,
+        'title' : post.title,
+        'cat_selected' : post.cat_id,
+    }
+
+    return render(request, 'women/post.html', context=context)
 
 def show_category(request, cat_id):
     posts = Women.objects.filter(cat_id=cat_id)
