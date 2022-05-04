@@ -32,3 +32,6 @@ def login(request):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1 style="color:darkblue">Сторінка не знайдена :(</h1><br><a href="/">перейти на головну</a>')
+
+def show_post(request, post_id):
+    return HttpResponse(f'Відображення статті із id = {post_id}')
