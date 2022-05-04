@@ -10,10 +10,13 @@ menu = [{'title' : 'Про сайт', 'url_name' : 'about'},
 
 def index(request):
     posts = Women.objects.all()
+    cats = Category.objects.all()
     context = {
         'posts':posts, 
+        'cats' : cats,
         'menu':menu, 
         'title':'Головна',
+        'cat_selected' : 0,
         }
     return render(request, 'women/index.html', context=context)
 
@@ -35,3 +38,6 @@ def pageNotFound(request, exception):
 
 def show_post(request, post_id):
     return HttpResponse(f'Відображення статті із id = {post_id}')
+
+def show_category(request, cat_id):
+    return HttpResponse(f'Відображення категорій із id = {cat_id}')
