@@ -1,5 +1,7 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render, get_object_or_404
+
+from .forms import *
 from .models import *
 
 
@@ -20,10 +22,24 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'women/about.html', {'menu':menu, 'title':'Про сайт'})
+    return render(request, 'women/about.html', 
+                    {'menu':menu, 'title':'Про сайт'})
 
 def addpage(request):
-    return HttpResponse('Додавання статті')
+    if request.method == 'POST':
+        form = AddPostForms(request.POST)
+        if form.is_valid():
+            # print(form.changed_data)
+            try:
+                Women.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Помилка додавання статті')
+
+    else:
+        form = AddPostForms()
+    return render(request, 'women/addpage.html', 
+                {'form':form, 'menu':menu, 'title':'Додавання статті'})
 
 def contact(request):
     return HttpResponse('Зворотній звязок')
@@ -32,7 +48,9 @@ def login(request):
     return HttpResponse('Авторизація')
 
 def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1 style="color:darkblue">Сторінка не знайдена :(</h1><br><a href="/">перейти на головну</a>')
+    return HttpResponseNotFound('''<h1 style="color:darkblue">
+    Сторінка не знайдена :(</h1><br>
+    <a href="/">перейти на головну</a>''')
 
 def show_post(request, post_slug):
     post = get_object_or_404(Women, slug=post_slug)
