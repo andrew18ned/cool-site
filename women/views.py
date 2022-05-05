@@ -27,14 +27,11 @@ def about(request):
 
 def addpage(request):
     if request.method == 'POST':
-        form = AddPostForms(request.POST)
+        form = AddPostForms(request.POST, request.FILES)
         if form.is_valid():
             # print(form.changed_data)
-            try:
-                Women.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                form.add_error(None, 'Помилка додавання статті')
+            form.save()
+            return redirect('home')
 
     else:
         form = AddPostForms()
