@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path, include
 from .settings import MEDIA_ROOT
 from coolsite import settings
-from women.views import index, pageNotFound
+from women.views import pageNotFound
 from django.conf.urls.static import static
 
 urlpatterns = [

@@ -41,7 +41,7 @@ class Category(models.Model):
         return self.name
 
     def get_ablosute_url(self):
-        return reverse('category', kwargs={'cat_id':self.pk})
+        return reverse('category', kwargs={'cat_slug':self.slug})
 
     class Meta:
         verbose_name = 'Категорію'
