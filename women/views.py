@@ -2,29 +2,23 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
-
-
-menu = [{'title' : 'Про сайт', 'url_name' : 'about'}, 
-        {'title' : 'Добавити статтю', 'url_name' : 'add_page'}, 
-        {'title' : 'Зворотній звязок', 'url_name' : 'contact'}, 
-        {'title' : 'Увійти', 'url_name' : 'login'},] 
+from .utils import *
 
 
 
-class WomenHome(ListView):
+class WomenHome(DataMixin, ListView):
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
 
     def get_context_data(self, *,  object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Головна сторінка'
-        context['cat_selected'] = 0
-        return context
+        c_get = self.get_user_context(title='Головна сторінка')
+        return dict(list(context.items()) + list(c_get.items()))
 
     def get_queryset(self):
         return Women.objects.filter(is_published=True)
@@ -47,16 +41,17 @@ def about(request):
 
 
 
-class AddPage(CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForms
     template_name = 'women/addpage.html'
     success_url = reverse_lazy('home')
+    login_url = reverse_lazy('home')
 
     def get_context_data(self, *,  object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Додавання статті'
-        context['menu'] = menu
-        return context
+        c_get = self.get_user_context(title='Додавання статті')
+        return dict(list(context.items()) + list(c_get.items()))
+
 
 # def addpage(request):
 #     if request.method == 'POST':
@@ -85,7 +80,7 @@ def pageNotFound(request, exception):
 
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = Women
     template_name = 'women/post.html'
     slug_url_kwarg = 'post_slug'
@@ -93,9 +88,9 @@ class ShowPost(DetailView):
 
     def get_context_data(self, *,  object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['post']
-        context['menu'] = menu
-        return context
+        c_get = self.get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_get.items()))
+
 
 # def show_post(request, post_slug):
 #     post = get_object_or_404(Women, slug=post_slug)
@@ -110,7 +105,7 @@ class ShowPost(DetailView):
 
 
 
-class WomenCategory(ListView):
+class WomenCategory(DataMixin ,ListView):
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
@@ -122,10 +117,11 @@ class WomenCategory(ListView):
 
     def get_context_data(self, *,  object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Категорія - ' + str(context['posts'][0].cat)
-        context['menu'] = menu
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
+        c_def = self.get_user_context(title='Категорія - ' + 
+                                str(context['posts'][0].cat), 
+                                    cat_selected=context['posts'][0].cat_id)
+        return dict(list(context.items()) + list(c_def.items()))
+
 
 # def show_category(request, cat_id):
 #     posts = Women.objects.filter(cat_id=cat_id)
