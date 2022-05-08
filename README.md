@@ -1,3 +1,17 @@
 # cool-site
 
-I learn Djadngo and practic this app
+I learn Djadngo and practic this app.
+![img](https://github.com/andrew18ned/cool-site/blob/main/coolsite.png)
+
+## I studied:
+* MVC model
+* admin panel
+* migrations
+* ORM djadgo
+* templates
+* authorization and authetication
+
+## RUN
+cd venv/bin/activate  
+cd coolsite  
+./manage.py runserver  
