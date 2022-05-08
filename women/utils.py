@@ -3,8 +3,7 @@ from django.db.models import *
 
 menu = [{'title' : 'Про сайт', 'url_name' : 'about'}, 
         {'title' : 'Добавити статтю', 'url_name' : 'add_page'}, 
-        {'title' : 'Зворотній звязок', 'url_name' : 'contact'}, 
-        {'title' : 'Увійти', 'url_name' : 'login'},] 
+        {'title' : 'Зворотній звязок', 'url_name' : 'contact'}, ]
 
 
 
