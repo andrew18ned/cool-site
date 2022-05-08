@@ -111,7 +111,7 @@ class ShowPost(DataMixin, DetailView):
 #     return render(request, 'women/post.html', context=context)
 
 
-
+# не генерується посилання
 class WomenCategory(DataMixin, ListView):
     model = Women
     template_name = 'women/index.html'
