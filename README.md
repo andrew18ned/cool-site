@@ -9,7 +9,13 @@ I learn Djadngo and practic this app.
 * migrations
 * ORM djadgo
 * templates
+* templatetags and create tags
+* connection static files
 * authorization and authetication
+* mixin
+* pagination
+* django debug toolbar
+* cache
 
 ## RUN
 cd venv/bin/activate  
