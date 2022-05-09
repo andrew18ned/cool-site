@@ -33,9 +33,8 @@
 
 <table class="table-content" border=0 cellpadding="0" cellspacing="0">
 <tr>
-<!-- Sidebar зліва -->
+<!-- Sidebar -->
 	<td valign="top" class="left-chapters">
-		<!-- {% getcats 1 %}   params fileter=1 -->
 	<ul id="leftchapters">
 		{% if cat_selected == 0 %}
 			<li class="selected">Всі категорії</li>
@@ -59,13 +58,13 @@
 		</li>
 	</ul>
 </td>
-<!-- Кінець Sidebar'а -->
+<!-- /Sidebar -->
 <td valign="top" class="content">
 	<!-- Хлібні крихти -->
 	{% block breadcrumbs %}
 	{% endblock %}
 
-<!-- Блок контента -->
+<!-- Block content-->
 	<div class="content-text">
 {% block content %}
 {% endblock %}
@@ -93,7 +92,7 @@
 	</nav>
 {% endif %}
 	</div>
-<!-- Кінец блока контента -->
+<!-- /block content -->
 
 </td></tr></table>
 </td></tr>
@@ -103,6 +102,6 @@
 		<p>&copy; 2021 Часткове або повне копіювання інформації з даного сайту для поширення на інши ресурсах, у тому числі паперових, суворо заборонено.</p>
 	</div>
 </td></tr></table>
-<!-- Кінец footer'а і сторінки -->
+<!-- /Footer -->
 </body>
 </html>
