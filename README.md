@@ -15,6 +15,7 @@ I learn Djadngo and practic this app.
 * mixin
 * pagination
 * django debug toolbar
+* cache
 
 ## RUN
 cd venv/bin/activate  
