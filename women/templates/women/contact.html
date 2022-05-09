@@ -11,6 +11,6 @@
         {% for f in form %}
             <p><label for="{{ f.id_for_label }}" class="form-label">{{ f.label }}: </label>{{ f }}</p>
         {% endfor %}
-        <button type="submit">Відправити</button>
+        <button class="btn btn-primary" type="submit">Відправити</button>
     </form>
 {% endblock %}

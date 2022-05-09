@@ -406,16 +406,16 @@ ul.lang-list li a:hover {color: #fdc073;}
 }
 .list-pages a {
 	color: #000;
-	font-size: 24px;
+	font-size: 20px;
 	text-decoration: none;
 }
 .list-pages .page-num, .page-num-selected {
 	display: inline-block;
 	width: 60px;
-	height: 44px;
-	padding: 16px 0 0 0;
+	height: 60px;
+	padding: 10px 0 0 0;
 	border: 1px solid #d0d0d0;
-	border-radius: 30px;
+	border-radius: 10px;
 }
 .list-pages .page-num:hover {
 	box-shadow: 3px 3px 1px #d0d0d0; 
